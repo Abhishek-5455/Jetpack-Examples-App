@@ -41,6 +41,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tutorials.data.ListItem
 import com.example.tutorials.data.listItems
+import com.example.tutorials.text.TextScreen
 import com.example.tutorials.ui.theme.TutorialsTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,7 +50,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             TutorialsTheme {
                 // A surface container using the 'background' color from the theme
-                TutorialApp()
+                TextScreen()
             }
         }
     }
@@ -98,7 +99,9 @@ fun ListElement(
         ){
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(top = 28.dp).align(Alignment.Center)
+                modifier = Modifier
+                    .padding(top = 28.dp)
+                    .align(Alignment.Center)
             ) {
                 Icon(painter = painterResource(
                     id = item.iconId),

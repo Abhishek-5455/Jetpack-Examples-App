@@ -25,17 +25,18 @@ val Typography = Typography(
     ),
     displayLarge = TextStyle(
         fontFamily = Cabin,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Bold,
         fontSize = 30.sp
     ),
     displayMedium = TextStyle(
         fontFamily = Cabin,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         fontSize = 25.sp
     ),
     displaySmall = TextStyle(
         fontFamily = Cabin,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         fontSize = 20.sp
-    )
+    ),
+
 )

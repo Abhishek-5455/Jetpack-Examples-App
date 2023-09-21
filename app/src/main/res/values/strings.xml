@@ -1,3 +1,61 @@
 <resources>
     <string name="app_name">Jet Tutorials</string>
+
+    <string name="text_with_size">
+        """
+        Text(
+            text = "Text with large size",
+            fontSize = 30.sp
+        )
+        Text(
+            text = "Text with small size",
+            fontSize = 14.sp
+        )
+        """
+    </string>
+    <string name="text_with_color">
+        """
+        Text(
+            text = "Text with red color",
+            color = Color.Red
+        )
+        Text(
+            text = "Text with green color",
+            color = Color.Green
+        )
+        """
+    </string>
+    <string name="bold_text">
+        """
+        Text(
+            text = "Bold text",
+            fontWeight = FontWeight.Bold
+        )
+        """
+    </string>
+    <string name="italic_text">
+        """
+        Text(
+            text = "Italic text",
+            fontStyle = FontStyle.Italic
+        )
+        """
+    </string>
+    <string name="text_with_max_lines">
+        """
+        Text(
+            text = "Long Text".repeat(30),
+            maxLines = 2
+        )
+        """
+    </string>
+    <string name="text_with_overflow">
+        """
+        Text(
+            text = "Text Overflow".repeat(30),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+        """
+    </string>
 </resources>
