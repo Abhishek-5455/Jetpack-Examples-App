@@ -39,9 +39,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.tutorials.composables.ComposableScreen
 import com.example.tutorials.data.ListItem
 import com.example.tutorials.data.listItems
+import com.example.tutorials.image.ImageScreen
+import com.example.tutorials.progressbar.ProgressBarScreen
+import com.example.tutorials.scaffold.ScaffoldScreen
 import com.example.tutorials.text.TextScreen
+import com.example.tutorials.textField.TextFieldScreen
 import com.example.tutorials.ui.theme.TutorialsTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,8 +58,46 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TutorialsTheme {
-                // A surface container using the 'background' color from the theme
-                TextScreen()
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = Screen.StartScreen.route
+                ) {
+                    composable(Screen.StartScreen.route) {
+                        TutorialApp(navController = navController)
+                    }
+                    composable(
+                        Screen.TextScreen.route
+                    ) {
+                        TextScreen()
+                    }
+                    composable(
+                        Screen.ComposableScreen.route
+                    ) {
+                        ComposableScreen()
+                    }
+                    composable(
+                        Screen.ImageScreen.route
+                    ) {
+                        ImageScreen()
+                    }
+                    composable(
+                        Screen.ProgressbarScreen.route
+                    ) {
+                        ProgressBarScreen()
+                    }
+                    composable(
+                        Screen.ScaffoldScreen.route
+                    ) {
+                        ScaffoldScreen()
+                    }
+                    composable(
+                        Screen.TextFieldScreen.route
+                    ) {
+                        TextFieldScreen()
+                    }
+
+                }
             }
         }
     }
@@ -58,7 +105,9 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TutorialApp() {
+fun TutorialApp(
+    navController: NavController
+) {
     val items = listItems
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -74,14 +123,14 @@ fun TutorialApp() {
             )
         }
     ) {
-        MainScreen(items = items , contentPadding = it)
+        MainScreen(items = items , contentPadding = it, navController = navController)
     }
 }
 
 @Composable
 fun ListElement(
     item: ListItem,
-    onItemClick: (String) -> Unit,
+    onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -105,7 +154,7 @@ fun ListElement(
             ) {
                 Icon(painter = painterResource(
                     id = item.iconId),
-                    contentDescription = item.itemId,
+                    contentDescription = item.text,
                     tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .size(36.dp)
@@ -126,7 +175,8 @@ fun ListElement(
 fun MainScreen(
     modifier: Modifier = Modifier,
     items: List<ListItem>,
-    contentPadding: PaddingValues = PaddingValues(0.dp)
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    navController: NavController
 ) {
     val visibleState = remember {
         MutableTransitionState(false).apply {
@@ -147,7 +197,15 @@ fun MainScreen(
         ) {
             items(items) {listItem ->
                 ListElement(item = listItem, onItemClick = {
-
+                    when(it) {
+                        1 -> navController.navigate(Screen.ComposableScreen.route)
+                        2 -> navController.navigate(Screen.TextScreen.route)
+                        3 -> navController.navigate(Screen.TextFieldScreen.route)
+                        4 -> navController.navigate(Screen.ButtonScreen.route)
+                        5 -> navController.navigate(Screen.ImageScreen.route)
+                        6 -> navController.navigate(Screen.ProgressbarScreen.route)
+                        7 -> navController.navigate(Screen.ScaffoldScreen.route)
+                    }
                 })
             }
         }
@@ -157,6 +215,6 @@ fun MainScreen(
 @Preview(showSystemUi = false)
 @Composable
 fun DefaultPreview() {
-    TutorialApp()
+    TutorialApp(rememberNavController())
 }
 
