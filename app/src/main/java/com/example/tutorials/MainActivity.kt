@@ -3,12 +3,7 @@ package com.example.tutorials
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,73 +26,34 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.tutorials.composables.ComposableScreen
+import com.example.tutorials.common_ui.StartingScreenAnimation
 import com.example.tutorials.data.ListItem
 import com.example.tutorials.data.listItems
-import com.example.tutorials.image.ImageScreen
-import com.example.tutorials.progressbar.ProgressBarScreen
-import com.example.tutorials.scaffold.ScaffoldScreen
-import com.example.tutorials.text.TextScreen
-import com.example.tutorials.textField.TextFieldScreen
 import com.example.tutorials.ui.theme.TutorialsTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             TutorialsTheme {
                 val navController = rememberNavController()
-                NavHost(
-                    navController = navController,
-                    startDestination = Screen.StartScreen.route
-                ) {
-                    composable(Screen.StartScreen.route) {
-                        TutorialApp(navController = navController)
-                    }
-                    composable(
-                        Screen.TextScreen.route
-                    ) {
-                        TextScreen()
-                    }
-                    composable(
-                        Screen.ComposableScreen.route
-                    ) {
-                        ComposableScreen()
-                    }
-                    composable(
-                        Screen.ImageScreen.route
-                    ) {
-                        ImageScreen()
-                    }
-                    composable(
-                        Screen.ProgressbarScreen.route
-                    ) {
-                        ProgressBarScreen()
-                    }
-                    composable(
-                        Screen.ScaffoldScreen.route
-                    ) {
-                        ScaffoldScreen()
-                    }
-                    composable(
-                        Screen.TextFieldScreen.route
-                    ) {
-                        TextFieldScreen()
-                    }
 
-                }
+                val windowSize = calculateWindowSizeClass(activity = this)
+
+                TutorialApp(navController = navController, windowSize = windowSize.widthSizeClass)
             }
         }
     }
@@ -105,9 +61,11 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TutorialApp(
-    navController: NavController
+fun MainScreen(
+    navController: NavController,
+    windowSize: WindowWidthSizeClass
 ) {
+    val gridCells = if(windowSize == WindowWidthSizeClass.Compact) 2 else 3
     val items = listItems
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -123,7 +81,12 @@ fun TutorialApp(
             )
         }
     ) {
-        MainScreen(items = items , contentPadding = it, navController = navController)
+        MainScreenContent(
+            items = items,
+            contentPadding = it,
+            navController = navController,
+            gridCells = gridCells
+        )
     }
 }
 
@@ -172,28 +135,23 @@ fun ListElement(
 }
 
 @Composable
-fun MainScreen(
+fun MainScreenContent(
     modifier: Modifier = Modifier,
     items: List<ListItem>,
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    navController: NavController
+    navController: NavController,
+    gridCells: Int
 ) {
     val visibleState = remember {
         MutableTransitionState(false).apply {
             targetState = true
         }
     }
-    AnimatedVisibility(
-        visibleState = visibleState,
-        enter = fadeIn(
-            animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy)
-        ),
-        exit = fadeOut(),
-        modifier = modifier
-    ) {
+    StartingScreenAnimation(visibleState = visibleState) {
         LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            contentPadding = contentPadding
+            columns = GridCells.Fixed(gridCells),
+            contentPadding = contentPadding,
+            modifier = modifier
         ) {
             items(items) {listItem ->
                 ListElement(item = listItem, onItemClick = {
@@ -210,11 +168,5 @@ fun MainScreen(
             }
         }
     }
-}
-
-@Preview(showSystemUi = false)
-@Composable
-fun DefaultPreview() {
-    TutorialApp(rememberNavController())
 }
 
