@@ -1,5 +1,6 @@
 package com.example.tutorials.composables
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -20,6 +23,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +33,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.tutorials.R
 import com.example.tutorials.ui.theme.Cabin
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,6 +66,12 @@ fun ComposeLayoutContent(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.Start
     ) {
+        item{
+            Divider(
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }
         item {
             HeadingAndInfo(
                 heading = "What's Layouts in Android?",
@@ -78,6 +90,11 @@ fun ComposeLayoutContent(
         item {
             RowAndColumnSection()
         }
+
+        item {
+            AlignmentSection()
+        }
+
     }
 }
 
@@ -85,7 +102,7 @@ fun ComposeLayoutContent(
 @Preview(showSystemUi = true)
 @Composable
 fun DefaultPreview() {
-    ComposableScreen()
+    AlignmentSection()
 }
 
 @Composable
@@ -96,6 +113,26 @@ fun View(
     Box(
         modifier = modifier
             .size(64.dp)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .border(width = 2.dp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier.align(Alignment.Center),
+            style = MaterialTheme.typography.displaySmall
+        )
+    }
+}
+
+@Composable
+fun AlignmentView(
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .height(64.dp)
+            .width(160.dp)
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .border(width = 2.dp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     ) {
@@ -142,7 +179,7 @@ fun RowAndColumnSection() {
                     fontSize = 18.sp
                 )
             ) {
-                append("It arranges the views horizontally")
+                append("A Row will show each child next to the previous children. It's like a LinearLayout with a horizontal orientation.")
             }
         }
     )
@@ -177,18 +214,18 @@ fun RowAndColumnSection() {
                     fontSize = 18.sp
                 )
             ) {
-                append("It arranges the views vertically")
+                append("A Column will show each child below the previous children. It's like a LinearLayout with vertical orientation.")
             }
         }
     )
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(500.dp)
+            .height(250.dp)
     ) {
         Column(
             modifier = Modifier
-                .align(Alignment.TopCenter)
+                .align(Alignment.Center)
                 .padding(16.dp)
                 .background(MaterialTheme.colorScheme.surface)
                 .border(2.dp, color = MaterialTheme.colorScheme.onBackground)
@@ -202,3 +239,74 @@ fun RowAndColumnSection() {
         }
     }
 }
+
+@Composable
+fun AlignmentSection(
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(6.dp)
+    ) {
+        Text(
+            text = "Alignment",
+            style = MaterialTheme.typography.displayMedium
+        )
+        Text(
+            text = "There are nine alignment options that can apply to child UI elements: ",
+            style = MaterialTheme.typography.displaySmall
+        )
+        AlignmentTypes()
+    }
+}
+@Composable
+fun AlignmentTypes(
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height((100 * 3).dp)
+            .border(2.dp, color = MaterialTheme.colorScheme.onBackground)
+            .padding(12.dp)
+    ) {
+        AlignmentView(
+            text = "TopStart",
+            modifier = Modifier.align(Alignment.TopStart)
+        )
+        AlignmentView(
+            text = "TopCenter",
+            modifier = Modifier.align(Alignment.TopCenter)
+        )
+        AlignmentView(
+            text = "TopEnd",
+            modifier = Modifier.align(Alignment.TopEnd)
+        )
+        AlignmentView(
+            text = "CenterStart",
+            modifier = Modifier.align(Alignment.CenterStart)
+        )
+        AlignmentView(
+            text = "Center",
+            modifier = Modifier.align(Alignment.Center)
+        )
+        AlignmentView(
+            text = "CenterEnd",
+            modifier = Modifier.align(Alignment.CenterEnd)
+        )
+        AlignmentView(
+            text = "BottomStart",
+            modifier = Modifier.align(Alignment.BottomStart)
+        )
+        AlignmentView(
+            text = "BottomCenter",
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
+        AlignmentView(
+            text = "BottomEnd",
+            modifier = Modifier.align(Alignment.BottomEnd)
+        )
+    }
+}
+
