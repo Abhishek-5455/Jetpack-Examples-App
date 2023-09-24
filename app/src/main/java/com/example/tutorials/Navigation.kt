@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.tutorials.buttons.ButtonScreen
-import com.example.tutorials.composables.ComposableScreen
+import com.example.tutorials.layout.LayoutScreen
 import com.example.tutorials.image.ImageScreen
 import com.example.tutorials.progressbar.ProgressBarScreen
 import com.example.tutorials.scaffold.ScaffoldScreen
@@ -33,7 +33,7 @@ fun TutorialApp(
         composable(
             Screen.ComposableScreen.route
         ) {
-            ComposableScreen()
+            LayoutScreen()
         }
         composable(
             Screen.ImageScreen.route

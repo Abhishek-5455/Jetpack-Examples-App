@@ -35,60 +35,6 @@ fun TextExample(
         .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Button(onClick = {
-            //your onclick code here
-        }) {
-            Text(text = "Simple Button")
-        }
-
-        Button(
-            onClick = { },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
-        ) {
-            Text(text = "Button with gray background",color = Color.White)
-        }
-
-        Button(onClick = {}) {
-
-            Icon(
-                imageVector = Icons.Rounded.Home,
-                contentDescription = null
-            )
-
-            Text(text = "Add to cart",Modifier.padding(start = 10.dp))
-        }
-
-        Button(onClick = {}, shape = RectangleShape) {
-            Text(text = "Rectangle shape")
-        }
-
-        Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
-            Text(text = "Round corner shape")
-        }
-
-        Button(onClick = {}, shape = CutCornerShape(10)) {
-            Text(text = "Cut corner shape")
-        }
-
-        Button(
-            onClick = {
-                //your onclick code
-            },
-            border = BorderStroke(1.dp, Color.Red),
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Red)
-        ) {
-            Text(text = "Button with border", color = Color.DarkGray)
-        }
-
-        Button(onClick = {
-            //your onclick code here
-        },elevation =  ButtonDefaults.elevatedButtonElevation(
-            defaultElevation = 10.dp,
-            pressedElevation = 15.dp,
-            disabledElevation = 0.dp
-        )) {
-            Text(text = "Button with elevation")
-        }
 
     }
 }

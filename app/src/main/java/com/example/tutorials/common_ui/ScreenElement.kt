@@ -4,7 +4,9 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,8 +32,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.tutorials.text.ScreenItem
+import com.example.tutorials.ui.theme.Cabin
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,4 +111,103 @@ fun ScreenElement(
             }
         }
     }
+}
+
+
+@Composable
+fun ImageSection(
+    modifier: Modifier = Modifier,
+    imageId: Int
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Image(
+            painter = painterResource(id = imageId),
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier.align(Alignment.Center)
+        )
+    }
+}
+
+@Composable
+fun Heading(
+    heading: String,
+    description: String
+) {
+    Text(
+        text = heading,
+        style = MaterialTheme.typography.displayMedium
+    )
+    Text(
+        text = "\t\t\t\t${description}",
+        style = MaterialTheme.typography.displaySmall,
+        textAlign = TextAlign.Justify
+
+    )
+}
+
+@Composable
+fun SubHeading(
+    heading: String,
+    content: String
+) {
+    Text(
+        text = buildAnnotatedString {
+            withStyle(
+                style = SpanStyle(
+                    fontFamily = Cabin,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    textDecoration = TextDecoration.Underline,
+                    fontStyle = FontStyle.Italic
+                )
+            ) {
+                append(heading)
+            }
+            withStyle(
+                style = SpanStyle(
+                    fontFamily = Cabin,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+            ) {
+                append(content)
+            }
+        }
+    )
+}
+
+@Composable
+fun SubPoint(
+    heading: String,
+    content: String
+) {
+    Text(
+        text = buildAnnotatedString {
+            withStyle(
+                style = SpanStyle(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    background = MaterialTheme.colorScheme.secondary,
+                    fontFamily = Cabin,
+                    color = MaterialTheme.colorScheme.onSecondary
+                )
+            ) {
+                append(heading)
+            }
+            withStyle(
+                style = SpanStyle(
+                    fontFamily = Cabin,
+                    fontSize = 18.sp
+                )
+            ) {
+                append(content)
+            }
+        },
+        modifier = Modifier.padding(start = 16.dp)
+    )
 }

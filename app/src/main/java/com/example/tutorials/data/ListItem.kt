@@ -10,7 +10,7 @@ data class ListItem(
 
 val listItems = listOf(
     ListItem(
-        text = "Basic Composable",
+        text = "Layouts",
         itemId = 1,
         iconId = R.drawable.composable
     ),
