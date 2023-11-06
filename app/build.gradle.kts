@@ -70,9 +70,13 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.7.2")
 
+    //window size 
     implementation("androidx.compose.material3:material3-window-size-class:1.1.1")
 
+    //zoomable image
     implementation("com.github.re-ovo:ZoomableComposeImage:1.0.1")
 
+    //lottie animation
+    implementation("com.airbnb.android:lottie-compose:6.1.0")
 
 }

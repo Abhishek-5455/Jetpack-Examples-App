@@ -17,8 +17,11 @@ fun TutorialApp(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.StartScreen.route
+        startDestination = Screen.FlashScreen.route
     ) {
+        composable(Screen.FlashScreen.route) {
+            FlashingScreen(navController = navController)
+        }
         composable(Screen.StartScreen.route) {
             MainScreen(navController = navController , windowSize = windowSize)
         }
