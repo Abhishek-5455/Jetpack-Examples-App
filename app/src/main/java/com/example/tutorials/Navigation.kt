@@ -5,13 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.tutorials.buttons.ButtonScreen
+import com.example.tutorials.composables.ComposableScreen
 import com.example.tutorials.layout.LayoutScreen
-import com.example.tutorials.image.ImageScreen
 import com.example.tutorials.progressbar.ProgressBarScreen
 import com.example.tutorials.scaffold.ScaffoldScreen
-import com.example.tutorials.text.TextScreen
-import com.example.tutorials.textField.TextFieldScreen
 
 @Composable
 fun TutorialApp(
@@ -26,19 +23,14 @@ fun TutorialApp(
             MainScreen(navController = navController , windowSize = windowSize)
         }
         composable(
-            Screen.TextScreen.route
-        ) {
-            TextScreen()
-        }
-        composable(
-            Screen.ComposableScreen.route
+            Screen.LayoutScreen.route
         ) {
             LayoutScreen()
         }
         composable(
-            Screen.ImageScreen.route
+            Screen.ComposableScreen.route
         ) {
-            ImageScreen()
+            ComposableScreen()
         }
         composable(
             Screen.ProgressbarScreen.route
@@ -49,14 +41,6 @@ fun TutorialApp(
             Screen.ScaffoldScreen.route
         ) {
             ScaffoldScreen()
-        }
-        composable(
-            Screen.TextFieldScreen.route
-        ) {
-            TextFieldScreen()
-        }
-        composable(Screen.ButtonScreen.route) {
-            ButtonScreen()
         }
     }
 }

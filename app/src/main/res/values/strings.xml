@@ -191,5 +191,52 @@
         """
     </string>
 
+    <string name="simple_image">
+        """
+        Image(
+            painter = painterResource(id = R.drawable.nature_img),
+            contentDescription = "",
+            modifier = Modifier.fillMaxWidth()
+        )
+        """
+    </string>
+    <string name="image_circular_shape">
+        """
+        Image(
+            painter = painterResource(id = R.drawable.nature_img),
+            contentDescription = "",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(128.dp)
+                .clip(CircleShape)
+                .border(5.dp, Color.Gray, CircleShape)
+        )
+        """
+    </string>
+    <string name="image_rectangular_shape">
+        """
+        Image(
+            painter = painterResource(id = R.drawable.nature_img),
+            contentDescription = "",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(128.dp)
+                .clip(RoundedCornerShape(10))
+                .border(5.dp, Color.Gray, RoundedCornerShape(10))
+        )
+        """
+    </string>
+    <string name="image_with_size">
+        """
+        Image(
+            painter = painterResource(id = R.drawable.nature_img),
+            contentDescription = "",
+            modifier = Modifier
+                .size(150.dp),
+            contentScale = ContentScale.Inside
+        )
+        """
+    </string>
+
 
 </resources>

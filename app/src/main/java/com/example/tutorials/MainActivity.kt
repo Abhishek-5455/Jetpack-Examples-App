@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -70,15 +71,20 @@ fun MainScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.app_name),
-                        style = MaterialTheme.typography.displayLarge,
-                        modifier = Modifier.padding(start = 14.dp)
-                    )
-                }
-            )
+            Column {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text(
+                            text = "Jet Tutorials",
+                            style = MaterialTheme.typography.displayLarge
+                        )
+                    }
+                )
+                Divider(
+                    thickness = 1.dp,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
         }
     ) {
         MainScreenContent(
@@ -156,11 +162,8 @@ fun MainScreenContent(
             items(items) {listItem ->
                 ListElement(item = listItem, onItemClick = {
                     when(it) {
-                        1 -> navController.navigate(Screen.ComposableScreen.route)
-                        2 -> navController.navigate(Screen.TextScreen.route)
-                        3 -> navController.navigate(Screen.TextFieldScreen.route)
-                        4 -> navController.navigate(Screen.ButtonScreen.route)
-                        5 -> navController.navigate(Screen.ImageScreen.route)
+                        1 -> navController.navigate(Screen.LayoutScreen.route)
+                        2 -> navController.navigate(Screen.ComposableScreen.route)
                         6 -> navController.navigate(Screen.ProgressbarScreen.route)
                         7 -> navController.navigate(Screen.ScaffoldScreen.route)
                     }

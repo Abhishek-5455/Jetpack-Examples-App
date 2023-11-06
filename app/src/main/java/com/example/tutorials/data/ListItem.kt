@@ -15,24 +15,9 @@ val listItems = listOf(
         iconId = R.drawable.composable
     ),
     ListItem(
-        text = "Text",
+        text = "Composables",
         itemId = 2,
         iconId = R.drawable.text
-    ),
-    ListItem(
-        text = "TextField",
-        itemId = 3,
-        iconId = R.drawable.textfield
-    ),
-    ListItem(
-        text = "Buttons",
-        itemId = 4,
-        iconId = R.drawable.button
-    ),
-    ListItem(
-        text = "Images",
-        itemId = 5,
-        iconId = R.drawable.image
     ),
     ListItem(
         text = "Progress Bar",

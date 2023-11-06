@@ -21,46 +21,43 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.tutorials.R
 import com.example.tutorials.common_ui.Heading
 import com.example.tutorials.common_ui.ImageSection
 import com.example.tutorials.common_ui.SubHeading
 import com.example.tutorials.common_ui.SubPoint
-import com.example.tutorials.ui.theme.Cabin
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LayoutScreen() {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = "Compose Layout",
-                        style = MaterialTheme.typography.displayLarge
-                    )
-                }
-            )
+            Column {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text(
+                            text = "Compose Layout",
+                            style = MaterialTheme.typography.displayLarge
+                        )
+                    }
+                )
+                Divider(
+                    thickness = 1.dp,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
         }
     ) {
-        ComposeLayoutContent(
+        LayoutScreenContent(
             modifier = Modifier.padding(it)
         )
     }
 }
 
 @Composable
-fun ComposeLayoutContent(
+fun LayoutScreenContent(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -68,12 +65,6 @@ fun ComposeLayoutContent(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.Start
     ) {
-        item{
-            Divider(
-                thickness = 1.dp,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
         item {
             Heading(
                 heading = "What's Layouts in Android?",
@@ -139,25 +130,27 @@ fun View(
 @Composable
 fun RowAndColumnSection() {
     SubHeading(
-        heading = "Row : ",
-        content = "A Row will show each child next to the previous children. It's like a LinearLayout with a horizontal orientation."
+        heading = "Row",
+        content = ":  A Row will show each child next to the previous children. It's like a LinearLayout with a horizontal orientation."
     )
     ImageSection(imageId = R.drawable.row_code)
     Column(
-        modifier = Modifier.fillMaxWidth().padding(start = 8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 8.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         SubPoint(
-            heading = "modifier : ",
-            content = "  The modifier to be applied to the row"
+            heading = "modifier",
+            content = "  : The modifier to be applied to the row"
         )
         SubPoint(
-            heading = "horizontalArrangement : ",
-            content = "  The horizontal arrangement of the layout's children."
+            heading = "horizontalArrangement",
+            content = "  : The horizontal arrangement of the layout's children."
         )
         SubPoint(
             heading = "verticalAlignment : ",
-            content = "  The vertical alignment of the layout's children."
+            content = "  : The vertical alignment of the layout's children."
         )
     }
 
@@ -177,26 +170,28 @@ fun RowAndColumnSection() {
     }
     Spacer(modifier = Modifier.height(2.dp))
     SubHeading(
-        heading = "Column : ",
-        content = "A Column will show each child below the previous children. It's like a LinearLayout with vertical orientation."
+        heading = "Column",
+        content = " : A Column will show each child below the previous children. It's like a LinearLayout with vertical orientation."
     )
 
     ImageSection(imageId = R.drawable.column_code)
     Column(
-        modifier = Modifier.fillMaxWidth().padding(start = 8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 8.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         SubPoint(
-            heading = "modifier : ",
-            content = "  The modifier to be applied to the column"
+            heading = "modifier",
+            content = "  : The modifier to be applied to the column"
         )
         SubPoint(
-            heading = "horizontalAlignment : ",
-            content = "  The horizontal arrangement of the layout's children."
+            heading = "horizontalAlignment",
+            content = "  : The horizontal arrangement of the layout's children."
         )
         SubPoint(
-            heading = "verticalArrangement : ",
-            content = "  The vertical alignment of the layout's children."
+            heading = "verticalArrangement",
+            content = "  : The vertical alignment of the layout's children."
         )
     }
     Box(
@@ -231,45 +226,45 @@ fun AlignmentSection(
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         SubHeading(
-            heading = "Alignment : ",
-            content = "There are nine alignment options that can apply to child UI elements. These alignment decides where the view must be placed."
+            heading = "Alignment",
+            content = "  : There are nine alignment options that can apply to child UI elements. These alignment decides where the view must be placed."
         )
         Spacer(modifier = Modifier.height(6.dp))
         SubPoint(
-            heading = "TopStart : ",
-            content = " Top Row and First Column "
+            heading = "TopStart",
+            content = "  : Top Row and First Column "
         )
         SubPoint(
-            heading = "TopCenter : ",
-            content = " Top Row and Center Column"
+            heading = "TopCenter",
+            content = "  : Top Row and Center Column"
         )
         SubPoint(
-            heading = "TopEnd : ",
-            content = " Top Row and Last Column"
+            heading = "TopEnd",
+            content = "  : Top Row and Last Column"
         )
         SubPoint(
-            heading = "CenterStart : ",
-            content = " Middle Row and First Column "
+            heading = "CenterStart",
+            content = "  : Middle Row and First Column "
         )
         SubPoint(
-            heading = "Center : ",
-            content = " Middle Row and Center Column"
+            heading = "Center",
+            content = "  : Middle Row and Center Column"
         )
         SubPoint(
-            heading = "CenterEnd : ",
-            content = " Middle Row and Last Column"
+            heading = "CenterEnd",
+            content = "  : Middle Row and Last Column"
         )
         SubPoint(
-            heading = "BottomStart : ",
-            content = " Bottom Row and First Column "
+            heading = "BottomStart",
+            content = "  : Bottom Row and First Column "
         )
         SubPoint(
-            heading = "BottomCenter : ",
-            content = " Bottom Row and Center Column"
+            heading = "BottomCenter",
+            content = "  : Bottom Row and Center Column"
         )
         SubPoint(
-            heading = "BottomEnd : ",
-            content = " Bottom Row and Last Column"
+            heading = "BottomEnd",
+            content = "  : Bottom Row and Last Column"
         )
         Spacer(modifier = Modifier.height(6.dp))
         ImageSection(imageId = R.drawable.alignment_img)
