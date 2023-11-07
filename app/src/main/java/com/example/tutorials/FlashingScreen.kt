@@ -1,20 +1,17 @@
 package com.example.tutorials
 
 import android.view.animation.OvershootInterpolator
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,14 +19,19 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -38,68 +40,72 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.tutorials.ui.theme.Cabin
-import kotlinx.coroutines.delay
+import kotlin.math.roundToInt
 
 @Composable
 fun FlashingScreen(
     navController: NavController
 ) {
-    val composition by rememberLottieComposition(
+    val greetings by rememberLottieComposition(
         spec = LottieCompositionSpec.RawRes(resId = R.raw.lottie_animation)
     )
-
+    val runningBus by rememberLottieComposition(
+        spec = LottieCompositionSpec.RawRes(resId = R.raw.running_bus)
+    )
     val scale = remember {
         Animatable(0f)
     }
-
-    val visible by remember {
-        mutableStateOf(false)
+    var moved by remember { mutableStateOf(false) }
+    val pxToMove = with(LocalDensity.current) {
+        300.dp.toPx().roundToInt()
     }
+
+    val offset by animateIntOffsetAsState(
+        targetValue = if (moved) {
+            IntOffset(pxToMove, 0)
+        } else {
+            IntOffset.Zero
+        },
+        label = "offset"
+    )
+
     LaunchedEffect(key1 = true) {
         scale.animateTo(
-            targetValue = 0.5f,
+            targetValue = 1.5f,
             animationSpec = tween(
-                durationMillis = 500,
+                durationMillis = 2000,
                 easing = {
                     OvershootInterpolator(2f).getInterpolation(it)
                 }
             )
         )
-        delay(2000)
-        navController.navigate(Screen.StartScreen.route)
     }
-    Column(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .background(MaterialTheme.colorScheme.background)
+            .padding(horizontal = 32.dp).padding(top = 80.dp),
         horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        LottieAnimation(
-            modifier = Modifier
-                .size(size = 240.dp)
-                .scale(scale.value),
-            composition = composition,
-            iterations = LottieConstants.IterateForever
-        )
-        AnimatedVisibility(
-            visible = visible,
-            enter = fadeIn(
-                animationSpec = tween(
-                    delayMillis = 2000,
-                    easing = LinearEasing
-                )
+        item {
+            LottieAnimation(
+                modifier = Modifier
+                    .size(180.dp)
+                    .scale(scale.value),
+                composition = greetings,
+                iterations = LottieConstants.IterateForever,
+                alignment = Alignment.TopStart,
+                contentScale = ContentScale.Fit
             )
-        ) {
-            Box(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                buildAnnotatedString {
+        }
+        item {
+            Text(
+                text = buildAnnotatedString {
                     withStyle(
                         style = SpanStyle(
                             fontFamily = Cabin,
                             fontWeight = FontWeight.Normal,
-                            fontSize = 26.sp,
+                            fontSize = 22.sp,
                             color = MaterialTheme.colorScheme.onBackground
                         )
                     ) {
@@ -110,23 +116,43 @@ fun FlashingScreen(
                             fontFamily = Cabin,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onBackground,
-                            fontSize = 26.sp
+                            fontSize = 22.sp
                         )
                     ) {
                         append(" User,")
                     }
                 }
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = stringResource(id = R.string.welcome_content),
-                    fontSize = 22.sp,
-                    fontFamily = Cabin,
-                    color = MaterialTheme.colorScheme.onBackground
-
-                )
-            }
+            )
+            Text(
+                text = stringResource(id = R.string.welcome_content),
+                fontSize = 22.sp,
+                fontFamily = Cabin,
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Start
+            )
         }
+        item {
+            LottieAnimation(
+                modifier = Modifier
+                    .offset {
+                        offset
+                    }
+                    .size(80.dp)
+                    .padding(8.dp)
+                    .scale(scale.value)
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    ) {
+                        moved = !moved
+                        navController.navigate(Screen.StartScreen.route)
 
+                    },
+                composition = runningBus,
+                iterations = LottieConstants.IterateForever,
+                alignment = Alignment.TopStart
+            )
+        }
     }
 }
 

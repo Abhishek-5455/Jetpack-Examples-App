@@ -240,9 +240,20 @@
 
     <string name="welcome_content">
         """
-        I Abhishek welcome you to this app,
-        This app provides jetpack compose tutorial,
-        please go through it and leverage your android skills.
+        I
+        welcome you
+        to this app,
+        This app
+        provides
+        jetpack compose
+        tutorial,
+
+        please go
+        through it
+        and
+        leverage your
+        jetpack compose
+        skills.
         """
     </string>
 
