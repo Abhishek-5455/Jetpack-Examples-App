@@ -18,10 +18,10 @@ fun StartingScreenAnimation(
     AnimatedVisibility(
         visibleState = visibleState,
         enter = fadeIn(
-            animationSpec = tween(delayMillis = 2000, easing = LinearEasing)
+            animationSpec = tween(delayMillis = 1000, easing = LinearEasing)
         ),
         exit = fadeOut(
-            animationSpec = tween(delayMillis = 2000, easing = LinearEasing)
+            animationSpec = tween(delayMillis = 1000, easing = LinearEasing)
         ),
         modifier = modifier
     ) {

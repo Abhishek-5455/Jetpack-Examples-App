@@ -65,7 +65,7 @@ fun MainScreen(
     navController: NavController,
     windowSize: WindowWidthSizeClass
 ) {
-    val gridCells = if(windowSize == WindowWidthSizeClass.Compact) 2 else 3
+    val gridCells = if(windowSize == WindowWidthSizeClass.Compact) 2 else 4
     val items = listItems
     Scaffold(
         modifier = Modifier.fillMaxSize(),

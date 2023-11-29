@@ -1,4 +1,4 @@
-package com.example.tutorials
+package com.example.tutorials.screen
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
@@ -39,6 +39,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.tutorials.R
+import com.example.tutorials.Screen
 import com.example.tutorials.ui.theme.Cabin
 import kotlin.math.roundToInt
 

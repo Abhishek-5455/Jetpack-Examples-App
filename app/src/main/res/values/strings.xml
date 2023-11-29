@@ -257,5 +257,49 @@
         """
     </string>
 
+    <string name = "scaffold_code">
+        """
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(
+                            text = "Top App Bar",
+                            fontWeight = FontWeight.Bold
+                        )
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(Color.DarkGray)
+                )
+            },
+            bottomBar = {
+                BottomAppBar {
+                    Text(
+                        text = "Bottom App bar"
+                    )
+                }
+            },
+            floatingActionButton = {
+                FloatingActionButton(onClick = { }) {
+                    Icon(
+                        imageVector = Icons.Rounded.Add,
+                        contentDescription = null
+                    )
+                }
+            }
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Content"
+                )
+            }
+        }
+        """
+    </string>
+
 
 </resources>

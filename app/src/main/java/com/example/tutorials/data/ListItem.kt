@@ -10,23 +10,33 @@ data class ListItem(
 
 val listItems = listOf(
     ListItem(
-        text = "Layouts",
+        text = "UI Architecture",
         itemId = 1,
+        iconId = R.drawable.scaffold
+    ),
+    ListItem(
+        text = "Layouts",
+        itemId = 2,
         iconId = R.drawable.composable
     ),
     ListItem(
         text = "Composables",
-        itemId = 2,
+        itemId = 3,
         iconId = R.drawable.text
     ),
     ListItem(
-        text = "Progress Bar",
-        itemId = 6,
-        iconId = R.drawable.progress_bar
+        text = "Lists and Grids",
+        itemId = 4,
+        iconId = R.drawable.scaffold
     ),
     ListItem(
         text = "Scaffold",
-        itemId = 7,
+        itemId = 5,
+        iconId = R.drawable.scaffold
+    ),
+    ListItem(
+        text = "Animations",
+        itemId = 6,
         iconId = R.drawable.scaffold
     )
 )

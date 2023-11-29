@@ -1,4 +1,4 @@
-package com.example.tutorials.layout
+package com.example.tutorials.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

@@ -1,4 +1,4 @@
-package com.example.tutorials.composables
+package com.example.tutorials.screen
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -66,7 +66,7 @@ fun ComposableScreenContent(
         horizontalAlignment = Alignment.Start
     ) {
         item {
-            Examples(modifier)
+            HeadContent()
         }
         items(composeItems) {
             ComposeItem(item = it)
@@ -76,7 +76,7 @@ fun ComposableScreenContent(
 }
 
 @Composable
-fun Examples(
+fun HeadContent(
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -145,7 +145,7 @@ fun ComposeItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(400.dp)
-                .padding(12.dp)
+                .padding(vertical = 12.dp, horizontal = 6.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .background(MaterialTheme.colorScheme.surfaceVariant)
         ) {
